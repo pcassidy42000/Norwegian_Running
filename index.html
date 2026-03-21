@@ -830,7 +830,7 @@ const TYPE_BADGE={
 };
 
 function getBadge(day){
-  if(day.t==='threshold'&&(day.desc.includes('Double threshold')||day.desc.includes('DOUBLE THRESHOLD'))){
+  if(day.t==='threshold'&&day.desc.includes('PM:')){
     return TYPE_BADGE.double;
   }
   return TYPE_BADGE[day.t]||'';

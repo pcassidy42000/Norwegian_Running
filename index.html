@@ -320,6 +320,7 @@ body{
 .b-easy{background:rgba(61,217,164,.12);color:var(--teal)}
 .b-recovery{background:rgba(74,168,255,.12);color:var(--blue)}
 .b-threshold{background:rgba(200,245,66,.12);color:var(--accent)}
+.b-double{background:rgba(200,245,66,.22);color:var(--accent);border:1px solid rgba(200,245,66,.35)}
 .b-hills{background:rgba(255,184,77,.12);color:var(--amber)}
 .b-long{background:rgba(255,107,157,.12);color:var(--pink)}
 .b-vo2{background:rgba(255,100,100,.12);color:#ff8080}
@@ -803,11 +804,19 @@ const TYPE_BADGE={
   easy:'<span class="badge b-easy">Easy</span>',
   recovery:'<span class="badge b-recovery">Recovery</span>',
   threshold:'<span class="badge b-threshold">Threshold</span>',
+  double:'<span class="badge b-double">Double threshold</span>',
   hills:'<span class="badge b-hills">Hills</span>',
   long:'<span class="badge b-long">Long run</span>',
   vo2:'<span class="badge b-vo2">VO₂max</span>',
   race:'<span class="badge b-race">Race day</span>',
 };
+
+function getBadge(day){
+  if(day.t==='threshold'&&(day.desc.includes('Double threshold')||day.desc.includes('DOUBLE THRESHOLD'))){
+    return TYPE_BADGE.double;
+  }
+  return TYPE_BADGE[day.t]||'';
+}
 
 const CHART_COLORS=['#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517'];
 
@@ -971,7 +980,7 @@ function renderWeek(){
           ${!isRest?`<button class="tick-btn${done?' ticked':''}" onclick="toggleDone(${w.n},${i})" title="${done?'Mark incomplete':'Mark complete'}">✓</button>`:''}
         </div>
       </div>
-      ${TYPE_BADGE[day.t]||''}
+      ${getBadge(day)}
       <div class="day-desc">${day.desc}</div>
     </div>`;
   });

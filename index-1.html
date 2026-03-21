@@ -252,6 +252,13 @@ body{
   border-color:var(--accent);
   background:rgba(200,245,66,.05);
 }
+.day-card.done{
+  border-color:rgba(61,217,164,.35);
+  background:rgba(61,217,164,.04);
+  opacity:.85;
+}
+.day-card.done .day-name{color:var(--muted)}
+.day-card.done .day-desc{opacity:.6}
 .day-top{
   display:flex;
   justify-content:space-between;
@@ -264,12 +271,38 @@ body{
   font-weight:700;
   letter-spacing:.01em;
   color:var(--text);
+  transition:color .2s;
 }
 .day-mi{
   font-size:11px;
   color:var(--muted);
   font-family:var(--font-body);
 }
+.tick-btn{
+  width:22px;height:22px;
+  border-radius:50%;
+  border:1.5px solid var(--border2);
+  background:transparent;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:all .18s;
+  color:transparent;
+  font-size:12px;
+  margin-left:8px;
+}
+.tick-btn:hover{border-color:var(--teal);color:var(--teal)}
+.tick-btn.ticked{
+  background:var(--teal);
+  border-color:var(--teal);
+  color:#000;
+}
+.week-progress{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+.week-progress span{color:var(--teal);font-weight:500}
 .badge{
   display:inline-flex;
   align-items:center;
@@ -540,11 +573,11 @@ const PLAN=[
   {d:'Saturday',t:'long',m:11,desc:'11 mi: 9 easy + last 2 mi @9:00/mi. First progression finish.'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:13,ph:2,mi:32,cut:false,wk:'Jun 12',note:'Two threshold sessions per week from here. Thursday is always slightly easier than Tuesday.',days:[
+{n:13,ph:2,mi:32,cut:false,wk:'Jun 12',note:'Both Tuesday and Thursday are now threshold days — and both split into AM + PM. Shorter sessions, better quality, fits your day.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
-  {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×7 min @8:25/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 3×7 min @8:25/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 3 mi easy with 3×5 min @8:30/mi.'},
   {d:'Wednesday',t:'recovery',m:5,desc:'5 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×6 min @8:30/mi (90 sec jog) + 2 mi CD. Easier than Tuesday.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 3×6 min @8:30/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 3 mi easy with 3×5 min @8:35/mi. Slightly easier than Tuesday throughout.'},
   {d:'Friday',t:'easy',m:3,desc:'3 mi easy + 4 strides.'},
   {d:'Saturday',t:'long',m:12,desc:'12 mi easy (10:00/mi).'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -560,27 +593,27 @@ const PLAN=[
 ]},
 {n:15,ph:2,mi:34,cut:false,wk:'Jun 26',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
-  {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×8 min @8:20/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 4×7 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:28/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×6 min @8:25/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 4×6 min @8:25/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 3×5 min @8:30/mi. Keep this noticeably easier than Tuesday.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 4 strides.'},
   {d:'Saturday',t:'long',m:12,desc:'12 mi: 9 easy + 3 mi @9:00–9:15/mi.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
 {n:16,ph:2,mi:36,cut:false,wk:'Jul 3',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
-  {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×7 min @8:20/mi (90 sec jog) + 1.5 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 4×8 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:7,desc:'Threshold: 2 mi WU + 4×7 min @8:25/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:7,desc:'Double threshold — AM: 1 mi WU + 3×8 min @8:25/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 3×5 min @8:30/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:12,desc:'12 mi: 8 easy + 3 progressive to 9:00/mi + 1 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
 {n:17,ph:2,mi:38,cut:false,wk:'Jul 10',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
-  {d:'Tuesday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×8 min @8:20/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 4×8 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×7 min @8:25/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 4×7 min @8:25/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:30/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 10 easy + 3 @8:50/mi. First taste of near-race effort at end of long run.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -596,27 +629,27 @@ const PLAN=[
 ]},
 {n:19,ph:2,mi:40,cut:false,wk:'Jul 24',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
-  {d:'Tuesday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×8 min @8:20/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 5×7 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×8 min @8:20/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 4×7 min @8:22/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:28/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 4 easy + 5 @8:20/mi (threshold in the middle) + 4 easy. Norwegian-style long run.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:20,ph:2,mi:38,cut:false,wk:'Jul 31',note:'Final Phase 2 week. Threshold pace now feels manageable — that is the point.',days:[
+{n:20,ph:2,mi:38,cut:false,wk:'Jul 31',note:'Final Phase 2 week. Double threshold on both days is now normal. That is the point.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
-  {d:'Tuesday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×8 min @8:18/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 5×8 min @8:18/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:22/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×8 min @8:20/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'Double threshold — AM: 1 mi WU + 4×8 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:25/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 9 easy + 4 @8:00/mi.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:21,ph:3,mi:42,cut:false,wk:'Aug 7',note:'Phase 3 begins. Tuesday becomes a double-threshold day (AM + PM). PM session is always easier than AM.',days:[
+{n:21,ph:3,mi:42,cut:false,wk:'Aug 7',note:'Phase 3 begins. Both Tuesday and Thursday are now full double-threshold days throughout this phase.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy. Phase 3 begins.'},
-  {d:'Tuesday',t:'threshold',m:9,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 4×6 min @8:20/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 4 mi easy with 4×5 min @8:30/mi.'},
+  {d:'Tuesday',t:'threshold',m:9,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 4×6 min @8:20/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 4 mi easy with 4×5 min @8:28/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery (10:15–10:30/mi). Wednesday is recovery-only throughout Phase 3.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×7 min @8:20/mi (90 sec jog) + 1.5 mi CD.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 4×6 min @8:25/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 3 mi easy with 3×5 min @8:30/mi. Slightly easier than Tuesday.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 3 easy + 7 @8:30/mi + 3 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -625,7 +658,7 @@ const PLAN=[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 5×6 min @8:20/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×7 min @8:20/mi (90 sec jog) + 1.5 mi CD.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 4×6 min @8:22/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:28/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 4 easy + 6 @8:20/mi + 4 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -634,7 +667,7 @@ const PLAN=[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 5×6 min @8:15/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×7 min @8:18/mi (90 sec jog) + 2 mi CD.'},
+  {d:'Thursday',t:'threshold',m:9,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 5×7 min @8:18/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 4 easy + 3 @8:00 + 3 easy + 3 @7:50 + 1 easy. <strong>First race-pace segments.</strong>'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -652,7 +685,7 @@ const PLAN=[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 1 mi WU + 5×7 min @8:15/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:9,desc:'Threshold: 2 mi WU + 5×7 min @8:15/mi (90 sec jog) + 2 mi CD. Pace tightening.'},
+  {d:'Thursday',t:'threshold',m:9,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 5×7 min @8:15/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:22/mi. Pace tightening.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 3 easy + 4 @7:50 + 3 easy + 3 @7:45 + 1 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -697,7 +730,7 @@ const PLAN=[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'Double threshold — AM: 5×7 min @8:15/mi. PM: 4×5 min @8:20/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
-  {d:'Thursday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 5×8 min @8:15/mi + 1.5 mi CD. Back to threshold — VO₂ phase complete.'},
+  {d:'Thursday',t:'threshold',m:8,desc:'<strong>DOUBLE THRESHOLD</strong> — AM: 1 mi WU + 4×8 min @8:15/mi + 1 mi CD. PM: 3 mi easy with 4×5 min @8:20/mi. VO₂ phase complete — back to quality threshold volume.'},
   {d:'Friday',t:'easy',m:4,desc:'4 mi easy + 6 strides.'},
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 5 easy + 5 @7:45/mi + 3 easy. Last major race-pace stimulus.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
@@ -787,10 +820,15 @@ function sidebar(){
   PHASES.forEach(ph=>{
     h+=`<div class="phase-header ${ph.cls}">${ph.label}</div>`;
     PLAN.filter(w=>w.ph===ph.n).forEach(w=>{
+      const{done,total}=weekDoneCount(w.n);
+      const allDone=total>0&&done===total;
       h+=`<button class="nav-tab${state.week===w.n&&state.view==='week'?' active':''}" onclick="showWeek(${w.n})">
         <div class="nav-tab-inner">
           <span>Wk ${w.n} · ${w.wk}${w.cut?`<span class="cutback-tag">cutback</span>`:''}</span>
-          <span class="nav-mi">${w.mi} mi</span>
+          <span style="display:flex;align-items:center;gap:5px">
+            <span class="nav-mi">${w.mi} mi</span>
+            ${allDone?'<span style="color:var(--teal);font-size:11px">✓</span>':done>0?`<span style="font-size:9px;color:var(--muted)">${done}/${total}</span>`:''}
+          </span>
         </div>
       </button>`;
     });
@@ -887,6 +925,12 @@ function renderOverview(){
   },100);
 }
 
+function getCompleted(){try{return JSON.parse(localStorage.getItem('nr_completed')||'{}')}catch{return{}}}
+function setCompleted(obj){try{localStorage.setItem('nr_completed',JSON.stringify(obj))}catch{}}
+function sessionKey(wn,di){return 'w'+wn+'-d'+di}
+function toggleDone(wn,di){const c=getCompleted();const k=sessionKey(wn,di);if(c[k])delete c[k];else c[k]=1;setCompleted(c);renderWeek();}
+function weekDoneCount(wn){const c=getCompleted();const w=PLAN.find(x=>x.n===wn);if(!w)return{done:0,total:0};const total=w.days.filter(d=>d.t!=='rest').length;const done=w.days.filter((d,i)=>d.t!=='rest'&&c[sessionKey(wn,i)]).length;return{done,total};}
+
 function renderWeek(){
   const w=PLAN.find(x=>x.n===state.week);
   if(!w) return;
@@ -903,21 +947,29 @@ function renderWeek(){
         <div class="week-title">Week ${w.n} <span style="color:var(--muted);font-weight:400">· ${w.wk}</span></div>
         <div class="week-meta ${ph.cls}">${ph.label}</div>
       </div>
-      <div>
+      <div style="text-align:right">
         <div class="week-miles">${w.mi}</div>
         <div class="week-miles-label">miles target</div>
+        ${(()=>{const{done,total}=weekDoneCount(w.n);return total>0?`<div style="font-size:11px;color:var(--muted);margin-top:4px"><span style="color:var(--teal);font-weight:500">${done}</span>/${total} sessions done</div>`:''})()}
       </div>
     </div>
   `;
   if(w.cut) h+=`<div class="cutback-banner">✦ Cutback week — approximately 80% of prior volume. Do not fill it back in. This is where adaptation happens.</div>`;
   if(w.note) h+=`<div class="week-note">${w.note}</div>`;
+  const completed=getCompleted();
   h+=`<div class="day-grid">`;
-  w.days.forEach(day=>{
+  w.days.forEach((day,i)=>{
     const isRace=day.t==='race';
-    h+=`<div class="day-card${isRace?' race-day':''}">
+    const isRest=day.t==='rest';
+    const k=sessionKey(w.n,i);
+    const done=!!completed[k];
+    h+=`<div class="day-card${isRace?' race-day':''}${done?' done':''}">
       <div class="day-top">
         <div class="day-name">${day.d}</div>
-        <div class="day-mi">${day.m>0?day.m+' mi':''}</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="day-mi">${day.m>0?day.m+' mi':''}</div>
+          ${!isRest?`<button class="tick-btn${done?' ticked':''}" onclick="toggleDone(${w.n},${i})" title="${done?'Mark incomplete':'Mark complete'}">✓</button>`:''}
+        </div>
       </div>
       ${TYPE_BADGE[day.t]||''}
       <div class="day-desc">${day.desc}</div>

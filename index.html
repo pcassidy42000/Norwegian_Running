@@ -350,6 +350,92 @@ body{
 .day-notes::placeholder{color:var(--dim)}
 .day-notes:focus{border-color:var(--border2);color:var(--text)}
 
+/* MILEAGE TRACKER */
+.tracker{
+  margin-top:1.5rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--border);
+}
+.tracker-title{
+  font-family:var(--font-head);
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:.75rem;
+}
+.tracker-inputs{
+  display:flex;
+  gap:10px;
+  margin-bottom:1rem;
+  flex-wrap:wrap;
+}
+.tracker-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+  min-width:100px;
+}
+.tracker-label{
+  font-size:10px;
+  color:var(--dim);
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.tracker-input{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--border-radius-md);
+  color:var(--text);
+  font-family:var(--font-head);
+  font-size:18px;
+  font-weight:700;
+  padding:8px 10px;
+  width:100%;
+  outline:none;
+  transition:border-color .15s;
+  -moz-appearance:textfield;
+}
+.tracker-input::-webkit-outer-spin-button,
+.tracker-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.tracker-input::placeholder{color:var(--dim)}
+.tracker-input:focus{border-color:var(--accent)}
+.tracker-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.tracker-stat{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.75rem 1rem;
+}
+.tracker-stat-label{
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:5px;
+}
+.tracker-stat-val{
+  font-family:var(--font-head);
+  font-size:20px;
+  font-weight:700;
+  color:var(--text);
+  line-height:1.1;
+}
+.tracker-stat-pct{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+.pct-good{color:var(--teal)}
+.pct-warn{color:var(--amber)}
+.pct-low{color:var(--pink)}
+
 /* OVERVIEW / CHART */
 .chart-section{margin-bottom:2rem}
 .section-title{
@@ -455,7 +541,7 @@ body{
 <div class="header">
   <div class="header-left">
     <h1>Norwegian Half Marathon<br/><span>Training Plan</span></h1>
-    <p>36 weeks · Mar 20 – Nov 28 · Chicago</p>
+    <p>35 weeks · Mar 30 – Nov 28 · Chicago</p>
   </div>
   <div class="header-stats">
     <div class="stat">
@@ -484,16 +570,7 @@ body{
 
 <script>
 const PLAN=[
-{n:1,ph:1,mi:10,cut:false,wk:'Mar 20',note:'All running is easy this phase. Build the habit first — frequency before intensity.',days:[
-  {d:'Monday',t:'rest',m:0,desc:'Rest. Use today to plan your week and map a local route.'},
-  {d:'Tuesday',t:'easy',m:2,desc:'2 mi easy (10:00–10:30/mi). Almost embarrassingly slow is correct.'},
-  {d:'Wednesday',t:'easy',m:2,desc:'2 mi easy. Focus on relaxed breathing — nasal if possible.'},
-  {d:'Thursday',t:'easy',m:2,desc:'2 mi easy.'},
-  {d:'Friday',t:'rest',m:0,desc:'Rest.'},
-  {d:'Saturday',t:'long',m:3,desc:'3 mi easy long run (10:00/mi). The Saturday long run habit starts now.'},
-  {d:'Sunday',t:'rest',m:0,desc:'Rest or 20 min walk.'},
-]},
-{n:2,ph:1,mi:12,cut:false,wk:'Mar 27',note:'',days:[
+{n:1,ph:1,mi:12,cut:false,wk:'Mar 30',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:3,desc:'3 mi easy (10:00–10:30/mi).'},
   {d:'Wednesday',t:'easy',m:2,desc:'2 mi easy.'},
@@ -502,7 +579,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:4,desc:'4 mi easy long run (10:00/mi).'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi very easy recovery (10:30–11:00/mi).'},
 ]},
-{n:3,ph:1,mi:14,cut:false,wk:'Apr 3',note:'',days:[
+{n:2,ph:1,mi:14,cut:false,wk:'Apr 6',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:3,desc:'3 mi easy.'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy.'},
@@ -511,7 +588,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:5,desc:'5 mi easy long run. Keep pace honest throughout.'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi recovery (10:30–11:00/mi).'},
 ]},
-{n:4,ph:1,mi:11,cut:true,wk:'Apr 10',note:'Cutback week — do not fill it back in. Adaptation happens here.',days:[
+{n:3,ph:1,mi:11,cut:true,wk:'Apr 13',note:'Cutback week — do not fill it back in. Adaptation happens here.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:2,desc:'2 mi easy.'},
   {d:'Wednesday',t:'easy',m:2,desc:'2 mi easy.'},
@@ -520,7 +597,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:4,desc:'4 mi easy.'},
   {d:'Sunday',t:'recovery',m:1,desc:'1 mi easy or rest.'},
 ]},
-{n:5,ph:1,mi:16,cut:false,wk:'Apr 17',note:'',days:[
+{n:4,ph:1,mi:16,cut:false,wk:'Apr 20',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:4,desc:'4 mi easy (9:45–10:15/mi).'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy.'},
@@ -529,7 +606,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:6,desc:'6 mi easy. First 10K distance — keep it comfortable throughout.'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi recovery.'},
 ]},
-{n:6,ph:1,mi:18,cut:false,wk:'Apr 24',note:'',days:[
+{n:5,ph:1,mi:18,cut:false,wk:'Apr 27',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy.'},
@@ -538,7 +615,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:7,desc:'7 mi easy (10:00–10:15/mi).'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi recovery.'},
 ]},
-{n:7,ph:1,mi:20,cut:false,wk:'May 1',note:'Introduce strides this week — they keep your legs sharp without adding stress.',days:[
+{n:6,ph:1,mi:20,cut:false,wk:'May 4',note:'Introduce strides this week — they keep your legs sharp without adding stress.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy + 4 strides (20-sec accelerations at mile effort, walk back). First strides.'},
@@ -547,7 +624,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:8,desc:'8 mi easy (10:00/mi). First time at 8 miles — stay steady throughout.'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi easy recovery.'},
 ]},
-{n:8,ph:1,mi:16,cut:true,wk:'May 8',note:'Cutback week.',days:[
+{n:7,ph:1,mi:16,cut:true,wk:'May 11',note:'Cutback week.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy.'},
@@ -556,7 +633,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:6,desc:'6 mi easy.'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi easy recovery.'},
 ]},
-{n:9,ph:1,mi:23,cut:false,wk:'May 15',note:'Introduce hill reps. Effort-based only — pace is irrelevant going uphill.',days:[
+{n:8,ph:1,mi:23,cut:false,wk:'May 18',note:'Introduce hill reps. Effort-based only — pace is irrelevant going uphill.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:5,desc:'5 mi easy + 4 strides.'},
   {d:'Wednesday',t:'easy',m:4,desc:'4 mi easy.'},
@@ -565,7 +642,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:9,desc:'9 mi easy (10:00–10:15/mi).'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi recovery.'},
 ]},
-{n:10,ph:1,mi:26,cut:false,wk:'May 22',note:'Final Phase 1 week. By now you should be comfortable at 5 days/week and 10 miles long.',days:[
+{n:9,ph:1,mi:26,cut:false,wk:'May 25',note:'Final Phase 1 week. By now you should be comfortable at 5 days/week and 10 miles long.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:5,desc:'5 mi easy + 6 strides.'},
   {d:'Wednesday',t:'easy',m:4,desc:'4 mi easy.'},
@@ -574,7 +651,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:10,desc:'10 mi easy (10:00/mi). First double-digit long run — take it easy throughout.'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:11,ph:2,mi:28,cut:false,wk:'May 29',note:'Phase 2 begins. First threshold session this Tuesday — keep reps controlled, almost disappointingly easy.',days:[
+{n:10,ph:2,mi:28,cut:false,wk:'Jun 1',note:'Phase 2 begins. First threshold session this Tuesday — keep reps controlled, almost disappointingly easy.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:7,desc:'<strong>FIRST THRESHOLD:</strong> 1.5 mi WU + 3×6 min @8:35/mi (2 min jog recovery) + 1.5 mi CD. You should be able to say 4–5 words mid-rep.'},
   {d:'Wednesday',t:'recovery',m:5,desc:'5 mi easy recovery (10:15–10:45/mi). Day after threshold — genuinely easy.'},
@@ -583,7 +660,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:11,desc:'11 mi easy (10:00–10:15/mi).'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:12,ph:2,mi:30,cut:false,wk:'Jun 5',note:'',days:[
+{n:11,ph:2,mi:30,cut:false,wk:'Jun 8',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:7,desc:'Threshold: 1.5 mi WU + 4×6 min @8:30/mi (90 sec jog) + 1.5 mi CD.'},
   {d:'Wednesday',t:'recovery',m:5,desc:'5 mi easy recovery.'},
@@ -592,7 +669,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:11,desc:'11 mi: 9 easy + last 2 mi @9:00/mi. First progression finish.'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:13,ph:2,mi:32,cut:false,wk:'Jun 12',note:'Both Tuesday and Thursday are now threshold days — and both split into AM + PM. Shorter sessions, better quality, fits your day.',days:[
+{n:12,ph:2,mi:32,cut:false,wk:'Jun 15',note:'Both Tuesday and Thursday are now threshold days — and both split into AM + PM. Shorter sessions, better quality, fits your day.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'AM: 1 mi WU + 3×7 min @8:25/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 3 mi easy with 3×5 min @8:30/mi.'},
   {d:'Wednesday',t:'recovery',m:5,desc:'5 mi easy recovery.'},
@@ -601,7 +678,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:12,desc:'12 mi easy (10:00/mi).'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:14,ph:2,mi:25,cut:true,wk:'Jun 19',note:'Cutback week — maintain one threshold session, drop Thursday to easy.',days:[
+{n:13,ph:2,mi:25,cut:true,wk:'Jun 22',note:'Cutback week — maintain one threshold session, drop Thursday to easy.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:7,desc:'Threshold: 2 mi WU + 3×7 min @8:25/mi + 2 mi CD. Fewer reps, same quality.'},
   {d:'Wednesday',t:'easy',m:4,desc:'4 mi easy.'},
@@ -610,7 +687,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:10,desc:'10 mi easy.'},
   {d:'Sunday',t:'recovery',m:2,desc:'2 mi recovery.'},
 ]},
-{n:15,ph:2,mi:34,cut:false,wk:'Jun 26',note:'',days:[
+{n:14,ph:2,mi:34,cut:false,wk:'Jun 29',note:'',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'AM: 1 mi WU + 4×7 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:28/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
@@ -619,7 +696,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:12,desc:'12 mi: 9 easy + 3 mi @9:00–9:15/mi.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:16,ph:2,mi:36,cut:false,wk:'Jul 3',note:'',days:[
+{n:15,ph:2,mi:36,cut:false,wk:'Jul 6',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'AM: 1 mi WU + 4×8 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 3 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
@@ -628,7 +705,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:12,desc:'12 mi: 8 easy + 3 progressive to 9:00/mi + 1 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:17,ph:2,mi:38,cut:false,wk:'Jul 10',note:'',days:[
+{n:16,ph:2,mi:38,cut:false,wk:'Jul 13',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 4×8 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
@@ -637,7 +714,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 10 easy + 3 @8:50/mi. First taste of near-race effort at end of long run.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:18,ph:2,mi:30,cut:true,wk:'Jul 17',note:'Cutback week. Three weeks of 36–38 miles absorbed here.',days:[
+{n:17,ph:2,mi:30,cut:true,wk:'Jul 20',note:'Cutback week. Three weeks of 36–38 miles absorbed here.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×7 min @8:25/mi + 2 mi CD.'},
   {d:'Wednesday',t:'easy',m:5,desc:'5 mi easy.'},
@@ -646,7 +723,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:11,desc:'11 mi easy (10:00/mi).'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:19,ph:2,mi:40,cut:false,wk:'Jul 24',note:'',days:[
+{n:18,ph:2,mi:40,cut:false,wk:'Jul 27',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×7 min @8:20/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -655,7 +732,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 4 easy + 5 @8:20/mi (threshold in the middle) + 4 easy. Norwegian-style long run.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:20,ph:2,mi:38,cut:false,wk:'Jul 31',note:'Final Phase 2 week. Double threshold on both days is now normal. That is the point.',days:[
+{n:19,ph:2,mi:38,cut:false,wk:'Aug 3',note:'Final Phase 2 week. Double threshold on both days is now normal. That is the point.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×8 min @8:18/mi (90 sec jog) + 1 mi CD. PM: 4 mi easy with 4×5 min @8:22/mi.'},
   {d:'Wednesday',t:'recovery',m:6,desc:'6 mi easy recovery.'},
@@ -664,7 +741,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 9 easy + 4 @8:00/mi.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:21,ph:3,mi:42,cut:false,wk:'Aug 7',note:'Phase 3 begins. Both Tuesday and Thursday are now full double-threshold days throughout this phase.',days:[
+{n:20,ph:3,mi:42,cut:false,wk:'Aug 10',note:'Phase 3 begins. Both Tuesday and Thursday are now full double-threshold days throughout this phase.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy. Phase 3 begins.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM + PM — AM: 1 mi WU + 4×6 min @8:20/mi (90 sec jog) + 1 mi CD. Rest 3–4 hrs. PM: 4 mi easy with 4×5 min @8:28/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery (10:15–10:30/mi). Wednesday is recovery-only throughout Phase 3.'},
@@ -673,7 +750,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 3 easy + 7 @8:30/mi + 3 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:22,ph:3,mi:44,cut:false,wk:'Aug 14',note:'',days:[
+{n:21,ph:3,mi:44,cut:false,wk:'Aug 17',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×6 min @8:20/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -682,7 +759,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 4 easy + 6 @8:20/mi + 4 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:23,ph:3,mi:46,cut:false,wk:'Aug 21',note:'Race pace introduced in the long run this week.',days:[
+{n:22,ph:3,mi:46,cut:false,wk:'Aug 24',note:'Race pace introduced in the long run this week.',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×6 min @8:15/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -691,7 +768,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 4 easy + 3 @8:00 + 3 easy + 3 @7:50 + 1 easy. <strong>First race-pace segments.</strong>'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:24,ph:3,mi:37,cut:true,wk:'Aug 28',note:'Cutback week. One threshold session only. Long run stays easy.',days:[
+{n:23,ph:3,mi:37,cut:true,wk:'Aug 31',note:'Cutback week. One threshold session only. Long run stays easy.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×7 min @8:20/mi + 2 mi CD. Single session only.'},
   {d:'Wednesday',t:'easy',m:6,desc:'6 mi easy.'},
@@ -700,7 +777,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:12,desc:'12 mi easy (10:00/mi).'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:25,ph:3,mi:47,cut:false,wk:'Sep 4',note:'',days:[
+{n:24,ph:3,mi:47,cut:false,wk:'Sep 7',note:'',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×7 min @8:15/mi + 1 mi CD. PM: 4 mi easy with 4×5 min @8:25/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -709,7 +786,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 3 easy + 4 @7:50 + 3 easy + 3 @7:45 + 1 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:26,ph:3,mi:48,cut:false,wk:'Sep 11',note:'First VO₂max session this week — replaces Thursday threshold. Use sparingly.',days:[
+{n:25,ph:3,mi:48,cut:false,wk:'Sep 14',note:'First VO₂max session this week — replaces Thursday threshold. Use sparingly.',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 1 mi WU + 5×7 min @8:15/mi + 1 mi CD. PM: 4 mi with 4×5 min @8:20/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -718,7 +795,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:15,desc:'<strong>15 mi</strong>: 5 easy + 5 @7:50/mi + 5 easy. Longest run of the plan.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:27,ph:3,mi:50,cut:false,wk:'Sep 18',note:'PEAK WEEK — 50 miles. Both Tuesday and Thursday are double threshold days.',days:[
+{n:26,ph:3,mi:50,cut:false,wk:'Sep 21',note:'PEAK WEEK — 50 miles. Both Tuesday and Thursday are double threshold days.',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy. Peak week starts.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM + PM — AM: 1 mi WU + 5×6 min @8:15/mi (90 sec jog) + 1 mi CD. PM (3–4 hrs later): 4×5 min @8:20/mi. PM reinforces AM — it does not compound it.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery (10:15–10:30/mi). Non-negotiable at this volume.'},
@@ -727,7 +804,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:15,desc:'15 mi: 5 easy + 3 @7:45 + 2 easy + 3 <strong>@7:38 (goal pace)</strong> + 2 easy. Goal pace debut in long run.'},
   {d:'Sunday',t:'recovery',m:5,desc:'5 mi easy recovery. Peak week complete.'},
 ]},
-{n:28,ph:3,mi:40,cut:true,wk:'Sep 25',note:'Cutback week. Final recovery block before the taper.',days:[
+{n:27,ph:3,mi:40,cut:true,wk:'Sep 28',note:'Cutback week. Final recovery block before the taper.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×7 min @8:15/mi + 2 mi CD. Single session.'},
   {d:'Wednesday',t:'easy',m:6,desc:'6 mi easy.'},
@@ -736,7 +813,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 10 easy + 3 @7:45/mi.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:29,ph:3,mi:49,cut:false,wk:'Oct 2',note:'',days:[
+{n:28,ph:3,mi:49,cut:false,wk:'Oct 5',note:'',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 5×7 min @8:15/mi. PM: 4×5 min @8:20/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -745,7 +822,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:14,desc:'14 mi: 4 easy + 3 @7:45 + 2 easy + 3 @7:38 (goal pace) + 2 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:30,ph:3,mi:46,cut:false,wk:'Oct 9',note:'Final Phase 3 week. Last big race-pace long run.',days:[
+{n:29,ph:3,mi:46,cut:false,wk:'Oct 12',note:'Final Phase 3 week. Last big race-pace long run.',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy.'},
   {d:'Tuesday',t:'threshold',m:9,desc:'AM: 5×7 min @8:15/mi. PM: 4×5 min @8:20/mi.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -754,7 +831,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:13,desc:'13 mi: 5 easy + 5 @7:45/mi + 3 easy. Last major race-pace stimulus.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:31,ph:4,mi:44,cut:false,wk:'Oct 16',note:'Taper begins. Mileage drops but intensity stays. Trust the process.',days:[
+{n:30,ph:4,mi:44,cut:false,wk:'Oct 19',note:'Taper begins. Mileage drops but intensity stays. Trust the process.',days:[
   {d:'Monday',t:'easy',m:5,desc:'5 mi easy. Taper starts — resist the urge to do more.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×8 min @8:15/mi + 2 mi CD. Single session now.'},
   {d:'Wednesday',t:'recovery',m:7,desc:'7 mi easy recovery.'},
@@ -763,7 +840,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:12,desc:'12 mi: 7 easy + 4 @7:45/mi + 1 easy.'},
   {d:'Sunday',t:'recovery',m:4,desc:'4 mi recovery.'},
 ]},
-{n:32,ph:4,mi:38,cut:false,wk:'Oct 23',note:'',days:[
+{n:31,ph:4,mi:38,cut:false,wk:'Oct 26',note:'',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:8,desc:'Threshold: 2 mi WU + 4×7 min @8:15/mi + 2 mi CD. Reps starting to drop.'},
   {d:'Wednesday',t:'easy',m:6,desc:'6 mi easy.'},
@@ -772,7 +849,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:11,desc:'11 mi: 7 easy + 3 @7:45/mi + 1 easy.'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi recovery.'},
 ]},
-{n:33,ph:4,mi:30,cut:false,wk:'Oct 30',note:'Last significant quality week. Thursday has 3×1 mile at race pace — the final rehearsal.',days:[
+{n:32,ph:4,mi:30,cut:false,wk:'Nov 2',note:'Last significant quality week. Thursday has 3×1 mile at race pace — the final rehearsal.',days:[
   {d:'Monday',t:'easy',m:4,desc:'4 mi easy.'},
   {d:'Tuesday',t:'threshold',m:7,desc:'Threshold: 2 mi WU + 3×7 min @8:15/mi + 2 mi CD.'},
   {d:'Wednesday',t:'easy',m:5,desc:'5 mi easy.'},
@@ -781,7 +858,7 @@ const PLAN=[
   {d:'Saturday',t:'long',m:10,desc:'10 mi easy (10:00/mi). Final long run — purely easy, no pace work.'},
   {d:'Sunday',t:'recovery',m:3,desc:'3 mi easy recovery.'},
 ]},
-{n:34,ph:4,mi:22,cut:false,wk:'Nov 6',note:'No more threshold work. Strides maintain neuromuscular sharpness. Taper madness may peak this week — you are not losing fitness, you are storing it.',days:[
+{n:33,ph:4,mi:22,cut:false,wk:'Nov 9',note:'No more threshold work. Strides maintain neuromuscular sharpness. Taper madness may peak this week — you are not losing fitness, you are storing it.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:5,desc:'5 mi easy + 6 strides.'},
   {d:'Wednesday',t:'easy',m:4,desc:'4 mi easy.'},
@@ -790,7 +867,7 @@ const PLAN=[
   {d:'Saturday',t:'easy',m:6,desc:'6 mi easy (10:00/mi).'},
   {d:'Sunday',t:'rest',m:0,desc:'Rest.'},
 ]},
-{n:35,ph:4,mi:16,cut:false,wk:'Nov 13',note:'Legs should start feeling snappy and fresh. That is the taper working.',days:[
+{n:34,ph:4,mi:16,cut:false,wk:'Nov 16',note:'Legs should start feeling snappy and fresh. That is the taper working.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest.'},
   {d:'Tuesday',t:'easy',m:4,desc:'4 mi easy + 4 strides.'},
   {d:'Wednesday',t:'easy',m:3,desc:'3 mi easy.'},
@@ -799,7 +876,7 @@ const PLAN=[
   {d:'Saturday',t:'easy',m:5,desc:'5 mi easy. Should feel springy.'},
   {d:'Sunday',t:'rest',m:0,desc:'Rest.'},
 ]},
-{n:36,ph:4,mi:13,cut:false,wk:'Nov 20',note:'Race week. Stay off your feet. Trust 36 weeks of work.',days:[
+{n:35,ph:4,mi:13,cut:false,wk:'Nov 23',note:'Race week. Stay off your feet. Trust 36 weeks of work.',days:[
   {d:'Monday',t:'rest',m:0,desc:'Rest. Stay off your feet as much as possible.'},
   {d:'Tuesday',t:'easy',m:3,desc:'3 mi easy + 4 strides. Keep it light.'},
   {d:'Wednesday',t:'easy',m:2,desc:'2 mi easy.'},
@@ -811,10 +888,10 @@ const PLAN=[
 ];
 
 const PHASES=[
-  {n:1,label:'Phase 1 — Base',sub:'Wk 1–10 · Mar–May',cls:'ph-1'},
-  {n:2,label:'Phase 2 — Build',sub:'Wk 11–20 · Jun–Jul',cls:'ph-2'},
-  {n:3,label:'Phase 3 — Peak',sub:'Wk 21–30 · Aug–Oct',cls:'ph-3'},
-  {n:4,label:'Phase 4 — Taper',sub:'Wk 31–36 · Oct–Nov',cls:'ph-4'},
+  {n:1,label:'Phase 1 — Base',sub:'Wk 1–9 · Mar–May',cls:'ph-1'},
+  {n:2,label:'Phase 2 — Build',sub:'Wk 10–19 · Jun–Aug',cls:'ph-2'},
+  {n:3,label:'Phase 3 — Peak',sub:'Wk 20–29 · Aug–Oct',cls:'ph-3'},
+  {n:4,label:'Phase 4 — Taper',sub:'Wk 30–35 · Oct–Nov',cls:'ph-4'},
 ];
 
 const TYPE_BADGE={
@@ -836,7 +913,7 @@ function getBadge(day){
   return TYPE_BADGE[day.t]||'';
 }
 
-const CHART_COLORS=['#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517'];
+const CHART_COLORS=['#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#3B6D11','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#185FA5','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#993556','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517','#BA7517'];
 
 let state={view:'week',week:1};
 let chart=null;
@@ -894,12 +971,12 @@ function renderOverview(){
       <div class="info-card"><div class="info-label">Race date</div><div class="info-val">Nov 28</div><div class="info-sub">2025 · 36 weeks</div></div>
       <div class="info-card"><div class="info-label">Goal time</div><div class="info-val">1:40:00</div><div class="info-sub">20 min PR improvement</div></div>
       <div class="info-card"><div class="info-label">Goal pace</div><div class="info-val">7:38/mi</div><div class="info-sub">Per mile average</div></div>
-      <div class="info-card"><div class="info-label">Peak mileage</div><div class="info-val">50 mi</div><div class="info-sub">Week 27 · Sep 18</div></div>
+      <div class="info-card"><div class="info-label">Peak mileage</div><div class="info-val">50 mi</div><div class="info-sub">Week 26 · Sep 18</div></div>
       <div class="info-card"><div class="info-label">Threshold pace</div><div class="info-val">8:15–8:30</div><div class="info-sub">Core Norwegian zone</div></div>
       <div class="info-card"><div class="info-label">Easy pace</div><div class="info-val">9:30–10:30</div><div class="info-sub">Majority of volume</div></div>
     </div>
     <div class="chart-section">
-      <div class="section-title">Weekly mileage · 36 weeks</div>
+      <div class="section-title">Weekly mileage · 35 weeks</div>
       <div class="chart-wrap">
         <div class="chart-canvas-wrap"><canvas id="overviewChart"></canvas></div>
         <div class="legend">
@@ -956,6 +1033,46 @@ function noteKey(wn,di){return 'note_w'+wn+'_d'+di}
 function getNote(wn,di){try{return localStorage.getItem(noteKey(wn,di))||''}catch{return''}}
 function saveNote(wn,di,val){try{localStorage.setItem(noteKey(wn,di),val)}catch{}}
 
+function miKey(wn){return 'mi_w'+wn}
+function getMiData(wn){try{return JSON.parse(localStorage.getItem(miKey(wn))||'null')}catch{return null}}
+function saveMiData(wn,target,actual){try{localStorage.setItem(miKey(wn),JSON.stringify({target,actual}))}catch{}}
+function updateTracker(wn){
+  const t=parseFloat(document.getElementById('tr-target').value)||0;
+  const a=parseFloat(document.getElementById('tr-actual').value)||0;
+  saveMiData(wn,t,a);
+  renderTrackerStats(wn);
+}
+function renderTrackerStats(wn){
+  const el=document.getElementById('tracker-stats');
+  if(!el) return;
+  const cur=getMiData(wn)||{};
+  const wTarget=cur.target||0;
+  const wActual=cur.actual||0;
+  let cumTarget=0,cumActual=0;
+  for(let i=1;i<=wn;i++){
+    const d=getMiData(i)||{};
+    cumTarget+=d.target||0;
+    cumActual+=d.actual||0;
+  }
+  const wPct=wTarget>0?Math.round(wActual/wTarget*100):null;
+  const cPct=cumTarget>0?Math.round(cumActual/cumTarget*100):null;
+  function pctClass(p){return p===null?'':p>=95?'pct-good':p>=80?'pct-warn':'pct-low';}
+  function fmt(a,t,p){
+    const pStr=p!==null?`<div class="tracker-stat-pct ${pctClass(p)}">${p}%</div>`:'<div class="tracker-stat-pct">—</div>';
+    return `<div class="tracker-stat-val">${a||'—'}/${t||'—'}</div>${pStr}`;
+  }
+  el.innerHTML=`
+    <div class="tracker-stat">
+      <div class="tracker-stat-label">This week</div>
+      ${fmt(wActual||'',wTarget||'',wPct)}
+    </div>
+    <div class="tracker-stat">
+      <div class="tracker-stat-label">Cumulative (wk 1–${wn})</div>
+      ${fmt(cumActual||'',cumTarget||'',cPct)}
+    </div>
+  `;
+}
+
 function getCompleted(){try{return JSON.parse(localStorage.getItem('nr_completed')||'{}')}catch{return{}}}
 function setCompleted(obj){try{localStorage.setItem('nr_completed',JSON.stringify(obj))}catch{}}
 function sessionKey(wn,di){return 'w'+wn+'-d'+di}
@@ -971,7 +1088,7 @@ function renderWeek(){
     <div class="view-tabs">
       <button class="vtab" onclick="showView('overview')">Overview</button>
       ${state.week>1?`<button class="vtab" onclick="showWeek(${state.week-1})">← Prev</button>`:''}
-      ${state.week<36?`<button class="vtab active" onclick="showWeek(${state.week+1})">Next week →</button>`:'<span class="vtab active">Final week</span>'}
+      ${state.week<35?`<button class="vtab active" onclick="showWeek(${state.week+1})">Next week →</button>`:'<span class="vtab active">Final week</span>'}
     </div>
     <div class="week-header">
       <div>
@@ -1012,9 +1129,25 @@ function renderWeek(){
   // Nav at bottom
   h+=`<div style="display:flex;gap:8px;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);">
     ${state.week>1?`<button class="vtab" onclick="showWeek(${state.week-1})">← Week ${state.week-1}</button>`:''}
-    ${state.week<36?`<button class="vtab active" onclick="showWeek(${state.week+1})">Week ${state.week+1} →</button>`:''}
+    ${state.week<35?`<button class="vtab active" onclick="showWeek(${state.week+1})">Week ${state.week+1} →</button>`:''}
+  </div>`;
+  const miData=getMiData(w.n)||{};
+  h+=`<div class="tracker">
+    <div class="tracker-title">Mileage log</div>
+    <div class="tracker-inputs">
+      <div class="tracker-field">
+        <div class="tracker-label">Target miles</div>
+        <input class="tracker-input" id="tr-target" type="number" min="0" max="99" step="0.5" placeholder="${w.mi}" value="${miData.target||''}" oninput="updateTracker(${w.n})"/>
+      </div>
+      <div class="tracker-field">
+        <div class="tracker-label">Actual miles</div>
+        <input class="tracker-input" id="tr-actual" type="number" min="0" max="99" step="0.5" placeholder="0" value="${miData.actual||''}" oninput="updateTracker(${w.n})"/>
+      </div>
+    </div>
+    <div id="tracker-stats" class="tracker-stats"></div>
   </div>`;
   m.innerHTML=h;
+  renderTrackerStats(w.n);
 }
 
 // Init
